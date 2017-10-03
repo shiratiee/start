@@ -23,16 +23,16 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
   });
-  
-  // handle any errors
-  app.use(function(err, req, res, next) {
-    console.error(err, err.stack);
-    res.status(err.status || 500);
-    res.send("Something went wrong: " + err.message);
-  });
-  
+
+    // handle any errors
+    app.use(function(err, req, res, next) {
+      console.error(err, err.stack);
+      res.status(err.status || 500);
+      res.send("Something went wrong: " + err.message);
+    });
+
   // listen on a port
-  var port = 3000;
+  var port = 8080;
   app.listen(port, function() {
     console.log("The server is listening closely on port", port);
     db
@@ -44,3 +44,5 @@ app.use(function(req, res, next) {
         console.error("Trouble right here in River City", err, err.stack);
       });
   });
+
+
