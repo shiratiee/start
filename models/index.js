@@ -10,7 +10,7 @@ const Place = db.define('place', {
     },
     city: {
         type: Sequelize.STRING,
-        allowNull: false      
+        allowNull: false
     },
     state: {
         type: Sequelize.STRING,
@@ -58,7 +58,7 @@ const Restaurant = db.define('restaurant', {
     cuisine : {
         type: Sequelize.STRING
     },
-    price: { 
+    price: {
         type: Sequelize.INTEGER,
         validate: {min: 1, max: 5}
     }

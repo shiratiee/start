@@ -30,4 +30,8 @@ Hotel.findAll({ include: [ Place ] })
 
 })
 
-module.exports= Router;
+Router.get('/hotels/:name', (req, res, next) {
+
+}
+
+module.exports = Router;
