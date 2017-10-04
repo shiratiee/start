@@ -594,13 +594,22 @@ document.getElementById(`${type}-add`).addEventListener('click', function() {
   fetch(`/api/${type}/${name}`)
   .then(response => response.json())
   .then((result) => {
-    var build= buildMarker("hotels" ,result.place.location).addTo(map);
+    const build= buildMarker(type ,result.place.location).addTo(map);
+    map.flyTo({center: result.place.location,
+      zoom: 13,
+      speed: 0.4,
+      curve: 3,
+      // easing(t) {
+      //   return t;
+      // }
+    });
     button.onclick = function() {
       listItem.remove();
-      map.removeLayer(build);
+      build.remove();
     }
   })
 })
+
 }
 
 makeListener("hotels");
