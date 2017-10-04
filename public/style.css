@@ -99,5 +99,14 @@ select {
   background: #286090;
 }
 
-
+.remove-btn {
+  background: rgba(20, 40, 133, 0.71);
+  height: 20px;
+  width: 20px;
+  font-size: 12px;
+  border-radius: 50%;
+  border: 0;
+  margin: 10px;
+  color: white;
+}
 

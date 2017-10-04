@@ -30,8 +30,31 @@ Hotel.findAll({ include: [ Place ] })
 
 })
 
-Router.get('/hotels/:name', (req, res, next) {
-
+Router.get('/:attractions/:name', (req, res, next) => {
+console.log(req.params.attractions);
+if (req.params.attractions === "hotels") {
+  var database = Hotel;
 }
+if (req.params.attractions === "restaurants") {
+  var database = Restaurant;
+}
+if (req.params.attractions === "activities") {
+  var database = Activity;
+}
+
+database.findOne({
+  where: {
+    name: req.params.name, 
+  },
+  include: [ Place ] 
+})
+  .then((attraction) => {
+  res.json(attraction)
+  })
+  .catch(console.error)
+})
+
+
+
 
 module.exports = Router;

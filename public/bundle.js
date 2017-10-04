@@ -549,7 +549,7 @@ const marker = buildMarker("activities", [-74.009, 40.705]);
 marker.addTo(map);
 
 //populate select fields
-fetch('http://localhost:8080/api')
+fetch('/api')
 .then(response => response.json())
 .then((result) => {
   result.hotels.forEach((hotel) => {
@@ -571,20 +571,41 @@ fetch('http://localhost:8080/api')
   .catch(console.error);
 
   //DOM select add buttons
-document.getElementById('hotels-add').addEventListener('click', function() {
-  const options = document.getElementById('hotels-choices').children;
+
+function makeListener(type) {
+
+document.getElementById(`${type}-add`).addEventListener('click', function() {
+  const options = document.getElementById(`${type}-choices`).children;
   let choice;
   for (var i = 0; i < options.length; i++) {
     if(options[i].selected) choice = options[i];
   }
 
   const listItem = document.createElement('li');
-  listItem.append(choice.textContent);
-  document.getElementById('hotels-list').appendChild(listItem);
+  const name = choice.textContent;
+  const button = document.createElement("button");
+  button.className = "remove-btn";
 
-  fetch('http://localhost:8080/api')
+  listItem.append(name)
+  listItem.append(button);
+  button.append('x');
+
+  document.getElementById(`${type}-list`).appendChild(listItem);
+  fetch(`/api/${type}/${name}`)
+  .then(response => response.json())
+  .then((result) => {
+    var build= buildMarker("hotels" ,result.place.location).addTo(map);
+    button.onclick = function() {
+      listItem.remove();
+      map.removeLayer(build);
+    }
+  })
 })
+}
 
+makeListener("hotels");
+makeListener("restaurants");
+makeListener("activities");
 
 
 
